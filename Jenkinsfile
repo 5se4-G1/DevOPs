@@ -17,17 +17,23 @@ pipeline {
                 url : 'https://github.com/5se4-G1/DevOPs.git'
             }
         }
+   stage('MVN CLEAN'){
+            steps{
+                sh  'mvn clean'
+            }
+        }
 
-        stage('Date') {
-                steps {
-                     script{
-                     def date = new Date()
-                     sdf = new SimpleDateFormat("MM/dd/yyyy")
-                     println(sdf.format(date))
-                             }
-                             }
-                             }
+        stage('MVN COMPILE'){
+            steps{
+                sh  'mvn compile'
+            }
+        }
 
+        stage('MVN PACKAGE'){
+              steps{
+                  sh  'mvn package'
+              }
+        }
       
         stage('Building our image') {
                steps{
@@ -37,12 +43,7 @@ pipeline {
                }
         }
 
-       stage('Docker images'){
-               steps{
-                        sh 'docker images'
-               }
-        }
-
+       
 
          stage('Deploy our image') {
                steps {
@@ -54,12 +55,7 @@ pipeline {
                }
          }
 
-         stage('Cleaning up') {
-               steps {
-                         sh "docker rmi $registry:$BUILD_NUMBER"
-               }
-         }
-
+      
           stage('DOCKER COMPOSE') {
                 steps {
                             sh 'docker-compose up -d --build'
