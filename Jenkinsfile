@@ -43,16 +43,7 @@ sh'mvn clean deploy -Dmaven.test.skip=true -Dresume=false'
 
 	      }*/
 	
-       stage('Docker Build and Push') {
-       steps {
-         withDockerRegistry([credentialsId: "Docker-Hub-SeyfCHERNI", url: ""]) {
-           sh 'printenv'
-           sh 'sudo docker build -t seyf89/ci:latest .'
-           sh 'docker push seyf89/ci:latest '
-         }
-       }
-     }
-
+      
 
 stage('Docker Compose') {
        steps {
@@ -64,12 +55,7 @@ stage('Docker Compose') {
 	
   
 }                   
-post {
-        always {
-	mail bcc: '', body: 'Ceci est un test de mailing', cc: '', from: '', replyTo: '', subject: 'Jenkins-buils-Notification', to: 'sayfouncherni@gmail.com'
- 
-}
-}
+
 }  
 
 
