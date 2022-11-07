@@ -20,7 +20,6 @@ import org.springframework.boot.test.context.SpringBootTest;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
-@SpringBootTest
 @TestMethodOrder(OrderAnnotation.class)
 
 
