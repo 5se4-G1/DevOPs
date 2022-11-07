@@ -102,30 +102,6 @@ pipeline {
           }
 
          
-
-    post{
-
-            success {
-                mail to: "bellilifatma49@gmail.com",
-                body: "${currentBuild.currentResult}: Job ${env.JOB_NAME} build ${env.BUILD_NUMBER}\n, More info at: ${env.BUILD_URL}",
-                from: "bellilifatma49@gmail.com",
-                subject: "Jenkins Build ${currentBuild.currentResult}: Job ${env.JOB_NAME}"
-            }
-
-            failure{
-                mail to: "bellilifatma49@gmail.com",
-                subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
-                from: "bellilifatma49@gmail.com",
-                body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
-            }
-
-            changed{
-                mail to: "bellilifatma49@gmail.com",
-                subject: "jenkins build:${currentBuild.currentResult}: ${env.JOB_NAME}",
-                from: "bellilifatma49@gmail.com",
-                body: "${currentBuild.currentResult}: Job ${env.JOB_NAME}\nMore Info can be found here: ${env.BUILD_URL}"
-            }
-       } 
      }
 
 
