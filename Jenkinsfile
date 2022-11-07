@@ -45,6 +45,26 @@ pipeline {
                   sh  'mvn package'
               }
         }
+        
+         stage("nexus deploy"){
+               steps{
+                       sh 'mvn  deploy'
+               }
+          }
+
+          stage('MVN SONARQUBE'){
+
+                steps{
+                          sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+                }
+          }
+          stage("Test JUnit /Mockito"){
+                steps {
+                            sh 'mvn test'
+                }
+          }
+
+    }
 
        /* stage('Start Containers with Ansible'){
                steps{
@@ -61,11 +81,11 @@ pipeline {
                }
         }
 
-       /* stage('Docker images'){
+       stage('Docker images'){
                steps{
                         sh 'docker images'
                }
-        }*/
+        }
 
 
          stage('Deploy our image') {
@@ -90,25 +110,7 @@ pipeline {
                 }
           }
 
-          stage("nexus deploy"){
-               steps{
-                       sh 'mvn  deploy'
-               }
-          }
-
-          stage('MVN SONARQUBE'){
-
-                steps{
-                          sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
-                }
-          }
-          stage("Test JUnit /Mockito"){
-                steps {
-                            sh 'mvn test'
-                }
-          }
-
-    }
+         
 
     post{
 
