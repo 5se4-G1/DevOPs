@@ -4,7 +4,7 @@ pipeline {
 
      environment {
             registry = "fatmabe/devops-project"
-            registryCredential = 'dockerhub'
+            registryCredential = 'dockerHub'
             dockerImage = ''
      }
 
