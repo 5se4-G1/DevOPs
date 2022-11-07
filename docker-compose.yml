@@ -15,7 +15,7 @@ services:
   app:
     depends_on:
       - mysqldb
-    build: .
+    image: fatmabe/devops-project
     restart: on-failure
     env_file: ./.env
     ports:
