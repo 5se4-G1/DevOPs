@@ -3,8 +3,8 @@ pipeline {
     agent any
 
      environment {
-            registry = "fatma/devops-project"
-            registryCredential = 'dckr_pat_NX_qTIaloGguDSY22Ki8Jk04CJo'
+            registry = "fatmabe/devops-project"
+            registryCredential = 'fatmaberoot123'
             dockerImage = ''
      }
 
@@ -28,42 +28,7 @@ pipeline {
                              }
                              }
 
-        stage('MVN CLEAN'){
-            steps{
-                sh  'mvn clean'
-            }
-        }
-
-        stage('MVN COMPILE'){
-            steps{
-                sh  'mvn compile'
-            }
-        }
-
-        stage('MVN PACKAGE'){
-              steps{
-                  sh  'mvn package'
-              }
-        }
-        
-         stage("nexus deploy"){
-               steps{
-                       sh 'mvn  deploy'
-               }
-          }
-
-          stage('MVN SONARQUBE'){
-
-                steps{
-                          sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
-                }
-          }
-          stage("Test JUnit /Mockito"){
-                steps {
-                            sh 'mvn test'
-                }
-          }
-
+      
         stage('Building our image') {
                steps{
                         script {
