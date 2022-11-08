@@ -57,21 +57,13 @@ pipeline {
          stage('Building our image') {
                steps{
                         script {
-                            dockerImage = docker.build registry + ":lates"
+                            dockerImage = docker.build registry + ":latest" 
                         }
                }
         }
   
 
-         stage('Deploy our image') {
-               steps {
-                        script {
-                            docker.withRegistry( '', registryCredential ) {
-                                dockerImage.push()
-                            }
-                        }
-               }
-         }
+       
 
           stage('DOCKER COMPOSE') {
                 steps {
