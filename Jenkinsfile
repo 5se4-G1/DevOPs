@@ -2,7 +2,7 @@ pipeline {
     agent any
 
      environment {
-            registry = "fatmabe/devopsexm-project"
+            registry = "fatmabe/devops-project"
             registryCredential = 'dockerHub'
             dockerImage = ''
      }
