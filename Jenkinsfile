@@ -2,7 +2,7 @@ pipeline {
     agent any
 
      environment {
-            registry = "fatmabe/devops-project"
+            registry = "fatma/devops-project"
             registryCredential = 'dockerHub'
             dockerImage = ''
      }
@@ -16,7 +16,10 @@ pipeline {
                 url : 'https://github.com/5se4-G1/DevOPs.git'
             }
         }
-   stage('MVN CLEAN'){
+
+      
+
+        stage('MVN CLEAN'){
             steps{
                 sh  'mvn clean'
             }
@@ -33,39 +36,14 @@ pipeline {
                   sh  'mvn package'
               }
         }
-         stage("Test JUnit /Mockito"){
-                steps {
-                            sh 'mvn test'
-                }
-          }   
-        stage("nexus deploy"){
-               steps{
-                       sh 'mvn  deploy'
-               }
-          }
 
-          stage('MVN SONARQUBE'){
-
-                steps{
-                          sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
-                }
-          }
-        
-   stage('Cleaning up') {
-               steps {
-                         sh "docker rmi $registry:latest"
-               }
-   }
-      
         stage('Building our image') {
                steps{
                         script {
                             dockerImage = docker.build registry + ":latest"
                         }
                }
-        
-
-       
+        }
 
          stage('Deploy our image') {
                steps {
@@ -77,15 +55,30 @@ pipeline {
                }
          }
 
-      
           stage('DOCKER COMPOSE') {
                 steps {
                             sh 'docker-compose up -d --build'
                 }
           }
 
-  
-         
+          stage("nexus deploy"){
+               steps{
+                       sh 'mvn  deploy'
+               }
+          }
+
+          stage('MVN SONARQUBE'){
+
+                steps{
+                          sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+                }
+          }
+          stage("Test JUnit /Mockito"){
+                steps {
+                            sh 'mvn test'
+                }
+          }
+
     }
 
     post{
@@ -112,3 +105,4 @@ pipeline {
             }
         }
 }
+
