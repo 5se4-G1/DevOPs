@@ -37,6 +37,25 @@ pipeline {
                   sh  'mvn package'
               }
         }
+        
+          stage("nexus deploy"){
+               steps{
+                       sh 'mvn  deploy'
+               }
+          }
+
+          stage('MVN SONARQUBE'){
+
+                steps{
+                          sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+                }
+          }
+          stage("Test JUnit /Mockito"){
+                steps {
+                            sh 'mvn test'
+                }
+          }
+
 
         stage('Building our image') {
                steps{
@@ -59,24 +78,6 @@ pipeline {
           stage('DOCKER COMPOSE') {
                 steps {
                             sh 'docker-compose up -d --build'
-                }
-          }
-
-          stage("nexus deploy"){
-               steps{
-                       sh 'mvn  deploy'
-               }
-          }
-
-          stage('MVN SONARQUBE'){
-
-                steps{
-                          sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
-                }
-          }
-          stage("Test JUnit /Mockito"){
-                steps {
-                            sh 'mvn test'
                 }
           }
 
