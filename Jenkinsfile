@@ -37,6 +37,18 @@ pipeline {
                   sh  'mvn package'
               }
         }
+              stage("nexus deploy"){
+               steps{
+                       sh 'mvn  deploy'
+               }
+          }
+
+          stage('MVN SONARQUBE'){
+
+                steps{
+                          sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+                }
+          }
          stage('Building our image') {
                steps{
                         script {
@@ -61,18 +73,7 @@ pipeline {
                 }
           }
         
-          stage("nexus deploy"){
-               steps{
-                       sh 'mvn  deploy'
-               }
-          }
-
-          stage('MVN SONARQUBE'){
-
-                steps{
-                          sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
-                }
-          }
+    
           stage("Test JUnit /Mockito"){
                 steps {
                             sh 'mvn test'
