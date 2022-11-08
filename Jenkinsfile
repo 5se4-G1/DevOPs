@@ -37,8 +37,24 @@ pipeline {
                 steps {
                             sh 'mvn test'
                 }
+          }   
+        stage("nexus deploy"){
+               steps{
+                       sh 'mvn  deploy'
+               }
           }
 
+          stage('MVN SONARQUBE'){
+
+                steps{
+                          sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+                }
+          }
+        
+   stage('Cleaning up') {
+               steps {
+                         sh "docker rmi $registry:latest"
+               }
       
         stage('Building our image') {
                steps{
@@ -67,18 +83,7 @@ pipeline {
                 }
           }
 
-     stage("nexus deploy"){
-               steps{
-                       sh 'mvn  deploy'
-               }
-          }
-
-          stage('MVN SONARQUBE'){
-
-                steps{
-                          sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
-                }
-          }
+  
          
     }
 
