@@ -54,7 +54,13 @@ pipeline {
                           sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
                 }
           }
-
+         stage('Building our image') {
+               steps{
+                        script {
+                            dockerImage = docker.build registry + ":latest"
+                        }
+               }
+        }
   
 
          stage('Deploy our image') {
