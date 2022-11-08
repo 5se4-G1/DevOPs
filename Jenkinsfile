@@ -16,7 +16,7 @@ archive 'target/*.jar'
      stage ('SonarQuality') {
 		steps {
 			
-                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=SeyfSpring -Dsonar.host.url=http://20.38.35.181:900 -Dsonar.login=sqp_1f7791e16a0e777c978d531fcb63848bd7e33c6c"
+                sh "mvn clean verify sonar:sonar -Dsonar.projectKey=SeyfSpring -Dsonar.host.url=http://20.38.35.181:9000 -Dsonar.login=sqp_1f7791e16a0e777c978d531fcb63848bd7e33c6c"
 	
 		}
 	}
