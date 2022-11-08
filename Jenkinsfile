@@ -55,6 +55,7 @@ pipeline {
                steps {
                          sh "docker rmi $registry:latest"
                }
+   }
       
         stage('Building our image') {
                steps{
@@ -62,7 +63,7 @@ pipeline {
                             dockerImage = docker.build registry + ":latest"
                         }
                }
-        }
+        
 
        
 
