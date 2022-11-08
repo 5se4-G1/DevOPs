@@ -42,14 +42,20 @@ pipeline {
                 }
           }
 
-
-        stage('Building our image') {
+          stage("nexus deploy"){
                steps{
-                        script {
-                            dockerImage = docker.build registry + ":latest"
-                        }
+                       sh 'mvn  deploy'
                }
-        }
+          }
+
+          stage('MVN SONARQUBE'){
+
+                steps{
+                          sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
+                }
+          }
+
+  
 
          stage('Deploy our image') {
                steps {
@@ -67,18 +73,6 @@ pipeline {
                 }
           }
 
-          stage("nexus deploy"){
-               steps{
-                       sh 'mvn  deploy'
-               }
-          }
-
-          stage('MVN SONARQUBE'){
-
-                steps{
-                          sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
-                }
-          }
          
     }
 
