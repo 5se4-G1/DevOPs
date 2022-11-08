@@ -13,7 +13,7 @@ services:
   spring-boot:
     build: ./
     ports:
-      - 8084:8089
+      - 8084:8083
     depends_on:
       - database
     restart: on-failure
