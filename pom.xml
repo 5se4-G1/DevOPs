@@ -92,7 +92,11 @@
 			<url>http://192.168.1.8:8081/repository/maven-releases/</url>
 		</repository>
 	</distributionManagement>
+
+
+
 	<build>
+
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -106,15 +110,12 @@
 					</excludes>
 				</configuration>
 			</plugin>
-			
-
-
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.1.0</version>
 			</plugin>
+
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -135,9 +136,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
-
-
 		</plugins>
 	</build>
 
