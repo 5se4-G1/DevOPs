@@ -2,7 +2,7 @@ pipeline {
     agent any
 
      environment {
-            registry = "fatma/devopsexm-project"
+            registry = "fatmabe/devopsexm-project"
             registryCredential = 'dockerHub'
             dockerImage = ''
      }
@@ -57,7 +57,7 @@ pipeline {
          stage('Building our image') {
                steps{
                         script {
-                            dockerImage = docker.build registry + ":$BUILD_NUMBER"
+                            dockerImage = docker.build registry + ":latest"
                         }
                }
         }
