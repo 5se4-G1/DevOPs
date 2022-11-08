@@ -36,6 +36,12 @@ pipeline {
                   sh  'mvn package'
               }
         }
+         stage("Test JUnit /Mockito"){
+                steps {
+                            sh 'mvn test'
+                }
+          }
+
 
         stage('Building our image') {
                steps{
@@ -73,12 +79,7 @@ pipeline {
                           sh  'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=sonar'
                 }
           }
-          stage("Test JUnit /Mockito"){
-                steps {
-                            sh 'mvn test'
-                }
-          }
-
+         
     }
 
     post{
